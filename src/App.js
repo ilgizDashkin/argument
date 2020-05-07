@@ -1,18 +1,9 @@
 import React, { Component } from 'react';
 import '@vkontakte/vkui/dist/vkui.css';
 import { View, Panel, PanelHeader, FormLayout, Button, Input, CardGrid, Card} from '@vkontakte/vkui';//пакеты из вк
-// import Icon24CameraOutline from '@vkontakte/icons/dist/24/camera_outline';//это из https://vkcom.github.io/icons/#24/smile
-// import Icon24Send from '@vkontakte/icons/dist/24/send';
-// import Icon24Smile from '@vkontakte/icons/dist/24/smile';
-// import 'bootstrap/dist/css/bootstrap.min.css'
-// import './App.css'
-// import Icon28StatisticsOutline from '@vkontakte/icons/dist/28/statistics_outline';
-// import Icon24Forward10 from '@vkontakte/icons/dist/24/forward_10';
-// import AnyChart from 'anychart-react'
-// import iconv from 'iconv-lite'
-// import Parser from 'rss-parser'
 import Icon24DismissSubstract from '@vkontakte/icons/dist/24/dismiss_substract';
 import Icon28WriteOutline from '@vkontakte/icons/dist/28/write_outline';
+import './App.css'
 
 class App extends Component {
 	constructor(props) {
@@ -66,8 +57,7 @@ class App extends Component {
 			let newArray = this.state.yesRes.slice();    
 			newArray.pop()   	
 			this.setState({
-				yesRes:newArray
-				
+				yesRes:newArray				
 			})
 			localStorage.argument = JSON.stringify(this.state);//сохраняем стейт в локалсторадже
 		}
@@ -77,8 +67,7 @@ class App extends Component {
 			let newArray = this.state.noRes.slice();    
 			newArray.pop()   	
 			this.setState({
-				noRes:newArray
-				
+				noRes:newArray				
 			})
 			localStorage.argument = JSON.stringify(this.state);//сохраняем стейт в локалсторадже
 		}
@@ -87,26 +76,28 @@ class App extends Component {
 		return (
 			<View id="view" activePanel="panel">
 				<Panel id="panel">
-					<PanelHeader>за vs против</PanelHeader>
-						<FormLayout align="center">
+					<PanelHeader>за или против</PanelHeader>
+						<FormLayout align="center" >
 							
-							<Input top="аргументы За"  align="center" value={this.state.yes} onChange={this.yesChange} />
-							<Input  top="аргументы Против"  align="center" value={this.state.no} onChange={this.noChange} />
+							<Input placeholder='введите аргументы За' top="аргументы За"  align="center" value={this.state.yes} onChange={this.yesChange} />
+							<Input placeholder='введите аргументы Против' top="аргументы Против"  align="center" value={this.state.no} onChange={this.noChange} />
 								<Button onClick={this.onClickHandler} before={<Icon28WriteOutline />} size="l">добавить</Button>
 								
 							{this.state.yesRes.length ?
-								<CardGrid>
+								<CardGrid id='yes'>
 									<Card size="l" mode="outline">
 									{this.state.yesRes }
 									</Card>
-									<Button onClick={this.delYesClickHandler} before={<Icon24DismissSubstract />} size="l">удалить</Button>
+									<p>всего {this.state.yesRes.length}</p>
+									<Button onClick={this.delYesClickHandler} before={<Icon24DismissSubstract />} size="s">удалить</Button>
 								</CardGrid> : null}
 								{this.state.noRes.length ?
-								<CardGrid>
+								<CardGrid id='no'>
 									<Card size="l" mode="outline">
 									{this.state.noRes }
 									</Card>
-									<Button onClick={this.delNoClickHandler} before={<Icon24DismissSubstract />} size="l">удалить</Button>
+									<p>всего {this.state.noRes.length}</p>
+									<Button onClick={this.delNoClickHandler} before={<Icon24DismissSubstract />} size="s">удалить</Button>
 								</CardGrid> : null}
 					
 						</FormLayout>
